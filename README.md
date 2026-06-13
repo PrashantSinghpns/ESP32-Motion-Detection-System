@@ -22,21 +22,31 @@ An ESP32-based motion detection system using a PIR sensor, GPIO interrupts, Free
 - LED
 - Buzzer
 
-## Architecture
+##Architecture
 
 PIR Sensor
-↓
+    │
+    ▼
 GPIO Interrupt
-↓
-ISR
-↓
-Motion Flag
-↓
-FreeRTOS Task
-↓
-MQTT Alert
-↓
-LED + Buzzer
+    │
+    ▼
+ISR (pirISR)
+    │
+    ▼
+motionDetected = true
+    │
+    ▼
+FreeRTOS Motion Task
+    │
+    ├── LED ON
+    ├── Buzzer ON
+    └── MQTT Publish
+             │
+             ▼
+      MQTT Broker
+             │
+             ▼
+      Mobile App / Dashboard
 
 ## Future Improvements
 
